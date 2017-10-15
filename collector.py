@@ -1,27 +1,50 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
 
-import json, config
+import config
+import json
+import argparse
+import requests
+import os
 from requests_oauthlib import OAuth1Session
 
-CK = config.CONSUMER_KEY
-CS = config.CONSUMER_SECRET
-AT = config.ACCESS_TOKEN
-ATS = config.ACCESS_TOKEN_SECRET
+def save_image(url):
+    r = requests.get(url)
+    if r.status_code == 200:
+        content_type = r.headers["content-type"]
+        if "image" in content_type:
+            filename = "img/" + os.path.basename(url)
+            with open(filename, "wb") as f:
+                f.write(r.content)
 
-twitter = OAuth1Session(CK, CS, AT, ATS)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--list', '-l', type=str, default="joisino_/pri")
+    args = parser.parse_args()
 
-url = "https://api.twitter.com/1.1/search/tweets.json"
+    CK = config.CONSUMER_KEY
+    CS = config.CONSUMER_SECRET
+    AT = config.ACCESS_TOKEN
+    ATS = config.ACCESS_TOKEN_SECRET
 
-keyward = "ゆゆ式"
+    twitter = OAuth1Session(CK, CS, AT, ATS)
 
-params = {'1': keyward, 'count': 5}
+    url = "https://api.twitter.com/1.1/search/tweets.json"
 
-req = twitter.get(url, params = params)
+    keyward = "filter:images list:" + args.list
 
-if req.status_code == 200:
-    search_timeline = json.loads(req.text)
-    for tweet in search_timeline['statuses']:
-        print(tweet['text'])
-else:
-    print("ERROR: %d" % req.status_code)
+    params = {'q': keyward, 'count': 10}
+
+    req = twitter.get(url, params = params)
+
+    if req.status_code == 200:
+        search_timeline = json.loads(req.text)
+        for tweet in search_timeline['statuses']:
+            if 'media' in tweet['entities']:
+                for media in tweet['entities']['media']:
+                    save_image(media['media_url'])
+    else:
+        print("ERROR: %d" % req.status_code)
+
+if __name__ == "__main__":
+    main()
