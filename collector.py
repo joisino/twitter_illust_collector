@@ -15,7 +15,8 @@ def save_image(url):
     if os.path.exists("misc/history"):
         with open("misc/history", "rb") as f:
             history = pickle.load(f)
-    filename = "img/" + os.path.basename(url)
+    basename = os.path.basename(url)
+    filepath = "img/" + basename
     if url not in history:
         history.append(url)
         if len(history) > max_history:
@@ -24,7 +25,9 @@ def save_image(url):
         if r.status_code == 200:
             content_type = r.headers["content-type"]
             if "image" in content_type:
-                with open(filename, "wb") as f:
+                if not os.path.isdir("img"):
+                    os.mkdir("img")
+                with open(filepath, "wb") as f:
                     f.write(r.content)
     with open("misc/history", "wb") as f:
         pickle.dump(history, f)
