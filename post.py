@@ -17,6 +17,7 @@ def post():
     files = os.listdir("img")
     for f in files:
         slack.notify(text=hist.get_url(f))
+        os.remove("img/" + f)
 
     os.removedirs("img")
     
