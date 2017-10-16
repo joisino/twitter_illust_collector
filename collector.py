@@ -32,8 +32,6 @@ def save_image(url, tweet_url):
                     f.write(r.content)
 
     # save history
-    if not os.path.isdir("misc"):
-        os.mkdir("misc")
     with open("misc/history.pickle", "wb") as f:
         pickle.dump(hist, f)
 

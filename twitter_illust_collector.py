@@ -6,6 +6,6 @@ from filter_illust import filter_illust
 from post import post
 
 if __name__ == "__main__":
-    collect_list()
+    collect_lists()
     filter_illust()
     post()
