@@ -17,5 +17,5 @@ class history():
     def contains(self, basename):
         return basename in self.history
 
-    
-        
+    def get_url(self, basename):
+        return self.dict[basename]
