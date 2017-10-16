@@ -7,30 +7,36 @@ import argparse
 import requests
 import os
 import pickle
+from history import history
 from requests_oauthlib import OAuth1Session
 
 def save_image(url):
-    max_history = 100
-    history = []
-    if os.path.exists("misc/history"):
-        with open("misc/history", "rb") as f:
-            history = pickle.load(f)
+    # load history
+    hist = history()
+    if os.path.exists("misc/history.pickle"):
+        with open("misc/history.pickle", "rb") as f:
+            hist = pickle.load(f)
+
+    # save images
     basename = os.path.basename(url)
     filepath = "img/" + basename
-    if url not in history:
-        history.append(url)
-        if len(history) > max_history:
-            history.pop(0)
+    if not hist.contains(basename):
+        hist.append(url, basename)
         r = requests.get(url)
         if r.status_code == 200:
             content_type = r.headers["content-type"]
             if "image" in content_type:
+                # save an image
                 if not os.path.isdir("img"):
                     os.mkdir("img")
                 with open(filepath, "wb") as f:
                     f.write(r.content)
-    with open("misc/history", "wb") as f:
-        pickle.dump(history, f)
+
+    # save history
+    if not os.path.isdir("misc"):
+        os.mkdir("misc")
+    with open("misc/history.pickle", "wb") as f:
+        pickle.dump(hist, f)
 
 def main():
     parser = argparse.ArgumentParser()
