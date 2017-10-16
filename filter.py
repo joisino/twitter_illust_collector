@@ -5,7 +5,7 @@ import os
 import cv2
 import config
 
-def main():
+def filter():
     files = os.listdir("img")
 
     for f in files:
@@ -20,4 +20,4 @@ def main():
             os.remove(filename)
 
 if __name__ == '__main__':
-    main()
+    filter()

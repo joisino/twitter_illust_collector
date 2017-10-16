@@ -37,7 +37,7 @@ def save_image(url, tweet_url):
     with open("misc/history.pickle", "wb") as f:
         pickle.dump(hist, f)
 
-def main():
+def collect_list(search_list):
     CK = config.CONSUMER_KEY
     CS = config.CONSUMER_SECRET
     AT = config.ACCESS_TOKEN
@@ -47,7 +47,7 @@ def main():
 
     url = "https://api.twitter.com/1.1/search/tweets.json"
 
-    keyward = "filter:images list:" + config.SEARCH_LIST
+    keyward = "filter:images list:" + search_list
 
     params = {'q': keyward, 'count': config.SEARCH_COUNT}
 
@@ -62,5 +62,9 @@ def main():
     else:
         print("ERROR: %d" % req.status_code)
 
+def collect_lists():
+    for li in config.SEARCH_LIST:
+        collect_list(li)
+        
 if __name__ == "__main__":
-    main()
+    collect_lists()

@@ -11,6 +11,6 @@ ACCESS_TOKEN_SECRET = "***"
 SLACK_URL = "***"
 
 # optional config
-SEARCH_LIST = "joisino_/pri"
+SEARCH_LIST = [ "joisino_/pri" ]
 SEARCH_COUNT = 20
 CASCADE_FILE = "misc/lbpcascade_animeface.xml"
