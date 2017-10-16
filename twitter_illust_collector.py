@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from collector import collect_list
+from collector import collect_lists
 from filter_illust import filter_illust
 from post import post
 
