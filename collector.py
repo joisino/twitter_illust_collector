@@ -10,7 +10,7 @@ import pickle
 from history import history
 from requests_oauthlib import OAuth1Session
 
-def save_image(url):
+def save_image(url, tweet_url):
     # load history
     hist = history()
     if os.path.exists("misc/history.pickle"):
@@ -21,7 +21,7 @@ def save_image(url):
     basename = os.path.basename(url)
     filepath = "img/" + basename
     if not hist.contains(basename):
-        hist.append(url, basename)
+        hist.append(tweet_url, basename)
         r = requests.get(url)
         if r.status_code == 200:
             content_type = r.headers["content-type"]
@@ -64,7 +64,7 @@ def main():
         for tweet in search_timeline['statuses']:
             if 'media' in tweet['entities']:
                 for media in tweet['entities']['media']:
-                    save_image(media['media_url'])
+                    save_image(media['media_url'], media['expanded_url'])
     else:
         print("ERROR: %d" % req.status_code)
 
