@@ -18,6 +18,7 @@ def post():
     for f in files:
         slack.notify(text=hist.get_url(f))
 
-        
+    os.removedirs("img")
+    
 if __name__ == "__main__":
     post()
