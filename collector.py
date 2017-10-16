@@ -3,7 +3,6 @@
 
 import config
 import json
-import argparse
 import requests
 import os
 import pickle
@@ -39,11 +38,6 @@ def save_image(url, tweet_url):
         pickle.dump(hist, f)
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--list', '-l', type=str, default="joisino_/pri")
-    parser.add_argument('--count', '-c', type=int, default=20)
-    args = parser.parse_args()
-
     CK = config.CONSUMER_KEY
     CS = config.CONSUMER_SECRET
     AT = config.ACCESS_TOKEN
@@ -53,9 +47,9 @@ def main():
 
     url = "https://api.twitter.com/1.1/search/tweets.json"
 
-    keyward = "filter:images list:" + args.list
+    keyward = "filter:images list:" + config.SEARCH_LIST
 
-    params = {'q': keyward, 'count': args.count}
+    params = {'q': keyward, 'count': config.SEARCH_COUNT}
 
     req = twitter.get(url, params = params)
 

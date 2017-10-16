@@ -3,13 +3,14 @@
 
 import os
 import cv2
+import config
 
 def main():
     files = os.listdir("img")
 
     for f in files:
         filename = "img/" + f
-        faceCascade = cv2.CascadeClassifier("misc/lbpcascade_animeface.xml")
+        faceCascade = cv2.CascadeClassifier(config.CASCADE_FILE)
         img = cv2.imread(filename)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
