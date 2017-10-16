@@ -6,6 +6,9 @@ import cv2
 import config
 
 def filter_illust():
+    # move to the repository
+    os.chdir( os.path.dirname(os.path.abspath(__file__)) )
+    
     files = os.listdir("img")
 
     for f in files:

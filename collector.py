@@ -10,6 +10,9 @@ from history import history
 from requests_oauthlib import OAuth1Session
 
 def save_image(url, tweet_url):
+    # move to the repository
+    os.chdir( os.path.dirname(os.path.abspath(__file__)) )
+        
     # load history
     hist = history()
     if os.path.exists("misc/history.pickle"):

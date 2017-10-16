@@ -8,6 +8,9 @@ import pickle
 from history import history
 
 def post():
+    # move to the repository
+    os.chdir( os.path.dirname(os.path.abspath(__file__)) )
+    
     slack = slackweb.Slack(url=config.SLACK_URL)
 
     hist = history()
