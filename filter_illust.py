@@ -5,7 +5,7 @@ import os
 import cv2
 import config
 
-def filter():
+def filter_illust():
     files = os.listdir("img")
 
     for f in files:
@@ -20,4 +20,4 @@ def filter():
             os.remove(filename)
 
 if __name__ == '__main__':
-    filter()
+    filter_illust()
