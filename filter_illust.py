@@ -21,6 +21,11 @@ def filter_illust():
 
         if len(faces) == 0:
             os.remove(filename)
+        if len(faces) == 1:
+            x, y, w, h = faces[0]
+            rate = w*h/(img.shape[0]*img.shape[1])
+            if rate <= 0.02:
+                os.remove(filename)
 
 if __name__ == '__main__':
     filter_illust()
