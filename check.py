@@ -19,7 +19,9 @@ def filter_illust():
 
         faces = faceCascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
+        print('---')
         for (x, y, w, h) in faces:
+            print(w*h / (img.shape[0]*img.shape[1]))
             cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
         cv2.imshow("Faces found", img)
