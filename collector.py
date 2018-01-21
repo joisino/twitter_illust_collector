@@ -21,7 +21,7 @@ def save_image(url, tweet_url):
 
     # save images
     basename = os.path.basename(url)
-    filepath = "img/" + basename
+    filepath = "tmp/" + basename
     if not hist.contains(basename):
         hist.append(tweet_url, basename)
         r = requests.get(url)
@@ -29,8 +29,8 @@ def save_image(url, tweet_url):
             content_type = r.headers["content-type"]
             if "image" in content_type:
                 # save an image
-                if not os.path.isdir("img"):
-                    os.mkdir("img")
+                if not os.path.isdir("tmp"):
+                    os.mkdir("tmp")
                 with open(filepath, "wb") as f:
                     f.write(r.content)
 
