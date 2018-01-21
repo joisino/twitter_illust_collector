@@ -14,3 +14,5 @@ SLACK_URL = "***"
 SEARCH_LIST = [ "joisino_/pri" ]
 SEARCH_COUNT = 20
 CASCADE_FILE = "misc/lbpcascade_animeface.xml"
+
+MAX_HISTORY = 1000

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 
+import config
+
 class history():
     def __init__(self):
-        self.max_history = 100
+        self.max_history = config.MAX_HISTORY
         self.history = []
         self.dict = {}
 
